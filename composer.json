@@ -2,7 +2,7 @@
     "name": "gurubob/ascii-table",
     "description": "Simple ASCII output of array data",
     "keywords": ["template", "composer", "package"],
-    "license": "DBAD",
+    "license": "WTFPL",
     "authors": [
         {
             "name": "Bob Brown",
