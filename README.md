@@ -7,7 +7,7 @@ Features
 * Create tables suitable for CLI output quickly
 * No external dependencies
 
-View/run example.php for examples. Here is the output of that script:
+View/run example.php for examples. This file is the output of that script:
 
 ```
 Create table via constructor:
@@ -55,11 +55,12 @@ Table with no headers:
 └───────────────────┴─────────────┘
 
 Create by chaining setters and adding individual rows:
-┌──────────┬───────┐
-│ Product  │ Price │
-├──────────┼───────┤
-│ Apples   │ $1.29 │
-│ Bananas  │ $1.69 │
-│ Cherries │ $2.99 │
-└──────────┴───────┘
+╔══════════╦═══════╗
+║ Product  ║ Price ║
+╠══════════╬═══════╣
+║ Apples   ║ $1.29 ║
+║ Bananas  ║ $1.69 ║
+║ Cherries ║ $2.99 ║
+╚══════════╩═══════╝
+
 ```

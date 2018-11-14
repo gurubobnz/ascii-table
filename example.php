@@ -1,6 +1,22 @@
 <?php
 	require 'vendor/autoload.php';
 
+	echo<<<EOT
+Simple ASCII Table Generator
+============================
+
+Features
+--------
+
+* Create tables suitable for CLI output quickly
+* No external dependencies
+
+View/run example.php for examples. This file is the output of that script:
+
+```
+
+EOT;
+
 	$sampleData = [
 		['Bob Brown', 'New Zealand'],
 		['Wolfgang Puck', 'America'],
@@ -37,3 +53,4 @@
 		->addRow(['Cherries', '$2.99'])
 		->format('doublebox');
 
+	echo "\n```\n";
