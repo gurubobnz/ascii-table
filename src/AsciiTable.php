@@ -89,6 +89,19 @@ class AsciiTable {
 				'tvl' => '┬',   // Top vertical line
 				'vl' => '│'     // Vertical line
 			],
+			'doublebox' => [
+				'br' => '╝',    // Bottom right
+				'tr' => '╗',    // Top right
+				'tl' => '╔',    // Top left
+				'bl' => '╚',    // Bottom left
+				'cross' => '╬', // Cross
+				'hl' => '═',    // Horizontal line
+				'lhl' => '╠',   // Left horizontal line
+				'rhl' => '╣',   // Right horizontal line
+				'bvl' => '╩',   // Bottom vertical line
+				'tvl' => '╦',   // Top vertical line
+				'vl' => '║'     // Vertical line
+			],
 			'ascii' => [
 				'br' => '+',    // Bottom right
 				'tr' => '+',    // Top right
