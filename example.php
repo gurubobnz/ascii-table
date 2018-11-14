@@ -29,10 +29,11 @@
 
 	echo "\nTable with no headers:\n";
 	echo $table->headers(null);
-	
+
 	echo "\nCreate by chaining setters and adding individual rows:\n";
 	echo (new GuruBob\AsciiTable(['Product', 'Price']))
 		->addRow(['Apples', '$1.29'])
 		->addRow(['Bananas', '$1.69'])
-		->addRow(['Cherries', '$2.99']);
-	
+		->addRow(['Cherries', '$2.99'])
+		->format('doublebox');
+
