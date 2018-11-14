@@ -57,4 +57,16 @@ class YourClassTest extends TestCase
 		$this->assertTrue($table->getHeaders()[0] <> $table2->getHeaders()[0]);
 		unset($table);
 	}
+
+	public function testSettingInvalidFormatThrowsException() {
+		$table = new GuruBob\AsciiTable;
+		try {
+			$table->format('ohdflgkhjdfgjhdfgjhsdlfgjhsdflgjkdsfhgkljdf');
+			$thrown = false;
+		} catch(GuruBob\AsciiTable\InvalidFormatException $e) {
+			$thrown = true;
+		}
+		$this->assertTrue($thrown);
+	}
+
 }

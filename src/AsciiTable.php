@@ -1,5 +1,7 @@
 <?php namespace GuruBob;
 
+use GuruBob\AsciiTable\InvalidFormatException;
+
 /**
 *  A sample class
 *
@@ -105,7 +107,7 @@ class AsciiTable {
 
 	public function format($format) {
 		if(!isset($this->formats[$format])) {
-			throw new Exception('Unknown format ['.$format.'] for AsciiTable');
+			throw new InvalidFormatException('Unknown format ['.$format.'] for AsciiTable');
 		}
 		$this->format = $format;
 		return $this;

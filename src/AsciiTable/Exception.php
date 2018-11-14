@@ -1,3 +1,4 @@
-<?php namespace GuruBob;
+<?php
 
+namespace GuruBob\AsciiTable;
 class Exception extends \Exception { }
