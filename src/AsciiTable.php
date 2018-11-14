@@ -14,7 +14,50 @@ class AsciiTable {
 
 	protected $headers = [];
 	protected $rows = [];
-	protected $format = 'box';
+	protected $format = 'box';	// default option
+
+	protected $formats = [
+		'box' => [
+			'br' => '┘',    // Bottom right
+			'tr' => '┐',    // Top right
+			'tl' => '┌',    // Top left
+			'bl' => '└',    // Bottom left
+			'cross' => '┼', // Cross
+			'hl' => '─',    // Horizontal line
+			'lhl' => '├',   // Left horizontal line
+			'rhl' => '┤',   // Right horizontal line
+			'bvl' => '┴',   // Bottom vertical line
+			'tvl' => '┬',   // Top vertical line
+			'vl' => '│'     // Vertical line
+		],
+		'doublebox' => [
+			'br' => '╝',    // Bottom right
+			'tr' => '╗',    // Top right
+			'tl' => '╔',    // Top left
+			'bl' => '╚',    // Bottom left
+			'cross' => '╬', // Cross
+			'hl' => '═',    // Horizontal line
+			'lhl' => '╠',   // Left horizontal line
+			'rhl' => '╣',   // Right horizontal line
+			'bvl' => '╩',   // Bottom vertical line
+			'tvl' => '╦',   // Top vertical line
+			'vl' => '║'     // Vertical line
+		],
+		'ascii' => [
+			'br' => '+',    // Bottom right
+			'tr' => '+',    // Top right
+			'tl' => '+',    // Top left
+			'bl' => '+',    // Bottom left
+			'cross' => '+', // Cross
+			'hl' => '-',    // Horizontal line
+			'lhl' => '+',   // Left horizontal line
+			'rhl' => '+',   // Right horizontal line
+			'bvl' => '+',   // Bottom vertical line
+			'tvl' => '+',   // Top vertical line
+			'vl' => '|'     // Vertical line
+		]
+	];
+
 
 	/**
 	* Sample method
@@ -61,6 +104,9 @@ class AsciiTable {
 	}
 
 	public function format($format) {
+		if(!isset($this->formats[$format])) {
+			throw new Exception('Unknown format ['.$format.'] for AsciiTable');
+		}
 		$this->format = $format;
 		return $this;
 	}
@@ -75,49 +121,7 @@ class AsciiTable {
 		$rows = $this->rows;
 		$format = $this->format;
 
-		$formats = [
-			'box' => [
-				'br' => '┘',    // Bottom right
-				'tr' => '┐',    // Top right
-				'tl' => '┌',    // Top left
-				'bl' => '└',    // Bottom left
-				'cross' => '┼', // Cross
-				'hl' => '─',    // Horizontal line
-				'lhl' => '├',   // Left horizontal line
-				'rhl' => '┤',   // Right horizontal line
-				'bvl' => '┴',   // Bottom vertical line
-				'tvl' => '┬',   // Top vertical line
-				'vl' => '│'     // Vertical line
-			],
-			'doublebox' => [
-				'br' => '╝',    // Bottom right
-				'tr' => '╗',    // Top right
-				'tl' => '╔',    // Top left
-				'bl' => '╚',    // Bottom left
-				'cross' => '╬', // Cross
-				'hl' => '═',    // Horizontal line
-				'lhl' => '╠',   // Left horizontal line
-				'rhl' => '╣',   // Right horizontal line
-				'bvl' => '╩',   // Bottom vertical line
-				'tvl' => '╦',   // Top vertical line
-				'vl' => '║'     // Vertical line
-			],
-			'ascii' => [
-				'br' => '+',    // Bottom right
-				'tr' => '+',    // Top right
-				'tl' => '+',    // Top left
-				'bl' => '+',    // Bottom left
-				'cross' => '+', // Cross
-				'hl' => '-',    // Horizontal line
-				'lhl' => '+',   // Left horizontal line
-				'rhl' => '+',   // Right horizontal line
-				'bvl' => '+',   // Bottom vertical line
-				'tvl' => '+',   // Top vertical line
-				'vl' => '|'     // Vertical line
-			]
-		];
-
-		$chars = $formats[$format];
+		$chars = $this->formats[$format];
 
 		// Calculate width of columns
 		$columns = [];
