@@ -123,6 +123,9 @@ class AsciiTable {
 		$rows = $this->rows;
 		$format = $this->format;
 
+		// No rows, no output
+		if(!$rows) return '';
+
 		$chars = $this->formats[$format];
 
 		// Calculate width of columns
