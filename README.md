@@ -63,4 +63,13 @@ Create by chaining setters and adding individual rows:
 ║ Cherries ║ $2.99 ║
 ╚══════════╩═══════╝
 
+Create by passing a collection (an array of arrays) as the first parameter:
+┌─────────────────┬──────────┬─────────────────────┐
+│ name            │ language │ timezone            │
+├─────────────────┼──────────┼─────────────────────┤
+│ Bob Brown       │ English  │ Pacific/Auckland    │
+│ Roberto Collazo │ Spanish  │ America/Mexico_City │
+│ Naya Yasotaro   │ Japanese │ Asia/Tokyo          │
+└─────────────────┴──────────┴─────────────────────┘
+
 ```

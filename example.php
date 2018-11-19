@@ -1,5 +1,6 @@
 <?php
 	require 'vendor/autoload.php';
+	use GuruBob\AsciiTable;
 
 	echo<<<EOT
 Simple ASCII Table Generator
@@ -24,14 +25,14 @@ EOT;
 	];
 
 	echo "Create table via constructor:\n";
-	echo new GuruBob\AsciiTable(
+	echo new AsciiTable(
 		['Name', 'Country'],	// Headers
 		$sampleData
 		// Optional format not specified (could be box or ascii)
 	);
 
 	echo "\nCreate table via OO interfaces:\n";
-	$table = new GuruBob\AsciiTable();
+	$table = new AsciiTable();
 	$table->headers(['Sales Agent', 'Travelling To']);
 	$table->rows($sampleData);
 	echo $table;
@@ -47,10 +48,31 @@ EOT;
 	echo $table->headers(null);
 
 	echo "\nCreate by chaining setters and adding individual rows:\n";
-	echo (new GuruBob\AsciiTable(['Product', 'Price']))
+	echo (new AsciiTable(['Product', 'Price']))
 		->addRow(['Apples', '$1.29'])
 		->addRow(['Bananas', '$1.69'])
 		->addRow(['Cherries', '$2.99'])
 		->format('doublebox');
+
+
+	echo "\nCreate by passing a collection (an array of arrays) as the first parameter:\n";
+
+	$data = [
+		[
+			'name' => 'Bob Brown',
+			'language' => 'English',
+			'timezone' => 'Pacific/Auckland'
+		],[
+			'name' => 'Roberto Collazo',
+			'language' => 'Spanish',
+			'timezone' => 'America/Mexico_City'
+		],[
+			'name' => 'Naya Yasotaro',
+			'language' => 'Japanese',
+			'timezone' => 'Asia/Tokyo'
+		],
+	];
+
+	echo new AsciiTable($data);
 
 	echo "\n```\n";
