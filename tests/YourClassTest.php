@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use GuruBob\AsciiTable;
 
 /**
 *  Corresponding Class to test YourClass class
@@ -21,7 +22,7 @@ class YourClassTest extends TestCase
 	*/
 	public function testIsThereAnySyntaxError()
 	{
-		$var = new GuruBob\AsciiTable;
+		$var = new AsciiTable;
 		$this->assertTrue(is_object($var));
 		unset($var);
 	}
@@ -35,14 +36,14 @@ class YourClassTest extends TestCase
 	*/
 	public function testHeaders()
 	{
-		$table = new GuruBob\AsciiTable;
+		$table = new AsciiTable;
 		$table->headers(['A','B','C']);
 		$this->assertTrue(count($table->getHeaders()) == 3);
 		unset($table);
 	}
 
 	public function testRows() {
-		$table = new GuruBob\AsciiTable;
+		$table = new AsciiTable;
 		$table->rows([1,2,3]);
 		$this->assertTrue(count($table->getRows()) == 3);
 		unset($table);
@@ -50,7 +51,7 @@ class YourClassTest extends TestCase
 
 	public function testCopy() {
 		// Check copy doesn't create referenced object
-		$table = new GuruBob\AsciiTable;
+		$table = new AsciiTable;
 		$table2 = $table->copy();
 		$table->headers(['A']);
 		$table2->headers(['B']);
@@ -59,14 +60,30 @@ class YourClassTest extends TestCase
 	}
 
 	public function testSettingInvalidFormatThrowsException() {
-		$table = new GuruBob\AsciiTable;
+		$table = new AsciiTable;
 		try {
 			$table->format('ohdflgkhjdfgjhdfgjhsdlfgjhsdflgjkdsfhgkljdf');
 			$thrown = false;
-		} catch(GuruBob\AsciiTable\InvalidFormatException $e) {
+		} catch(AsciiTable\InvalidFormatException $e) {
 			$thrown = true;
 		}
 		$this->assertTrue($thrown);
 	}
+
+	public function testCreatingTableWithACollection() {
+		$row = ['Name' => 'Bob', 'Computer' => 'Atari 130XE'];
+		$data = [
+			$row, $row, $row, $row
+		];
+		$table = new AsciiTable($data);
+		$this->assertTrue(count($table->getRows()) == 4);
+	}
+
+	public function testCreatingTableWithInvalidCollection() {
+		$data = [true, true, true];
+		$table = new AsciiTable($data);
+		$this->assertTrue(count($table->getRows()) == 4);
+	}
+
 
 }

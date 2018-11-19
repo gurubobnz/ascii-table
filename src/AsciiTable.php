@@ -1,6 +1,7 @@
 <?php namespace GuruBob;
 
 use GuruBob\AsciiTable\InvalidFormatException;
+use GuruBob\AsciiTable\Exception;
 
 /**
 *  A sample class
@@ -73,8 +74,24 @@ class AsciiTable {
 	*/
 
 	public function __construct($headers = [], $rows = [], $format = '') {
-		if($headers) $this->headers($headers);
-		if($rows) $this->rows($rows);
+
+		// If headers values are arrays not strings then assume that the data
+		// passed in is a bunch of key/value pair records, e.g. what you might
+		// get from the results of doing a database query.
+		if(isset($headers[0]) and is_array($headers[0])) {
+			$this->headers(array_keys($headers[0]));
+			$this->rows(array_map(function($data){
+				return array_values($data);
+			}, $headers));
+		} else if(isset($headers[0]) and is_string($headers[0])) {
+			// Normal behaviour, headers are a bunch of strings
+			if($headers) $this->headers($headers);
+			if($rows) $this->rows($rows);
+		} else {
+			if($headers) {
+				throw new Exception('Unexpected format for headers, please pass an array of strings or an array of arrays if you have a collection of things');
+			}
+		}
 		if($format) $this->format($format);
 	}
 
