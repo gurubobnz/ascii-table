@@ -73,6 +73,14 @@ EOT;
 		],
 	];
 
-	echo new AsciiTable($data);
+	$table = new AsciiTable($data);
+	echo $table;
 
+	echo "\nExclude the name column (via except()):\n";
+	echo $table->except('name');
+
+	echo "\nOnly show the name and timezone column (via only()):\n";
+	echo $table->only(['name', 'timezone']);
+
+	echo "\nNote: Use of only() and except() are mutually exclusive - setting one will unset the other\n";
 	echo "\n```\n";

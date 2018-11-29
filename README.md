@@ -72,4 +72,24 @@ Create by passing a collection (an array of arrays) as the first parameter:
 │ Naya Yasotaro   │ Japanese │ Asia/Tokyo          │
 └─────────────────┴──────────┴─────────────────────┘
 
+Exclude the name column (via except()):
+┌──────────┬─────────────────────┐
+│ language │ timezone            │
+├──────────┼─────────────────────┤
+│ English  │ Pacific/Auckland    │
+│ Spanish  │ America/Mexico_City │
+│ Spanish  │ America/Mexico_City │
+└──────────┴─────────────────────┘
+
+Only show the name and timezone column (via only()):
+┌─────────────────┬─────────────────────┐
+│ name            │ timezone            │
+├─────────────────┼─────────────────────┤
+│ Bob Brown       │ Pacific/Auckland    │
+│ Roberto Collazo │ America/Mexico_City │
+│ Roberto Collazo │ America/Mexico_City │
+└─────────────────┴─────────────────────┘
+
+Note: Use of only() and except() are mutually exclusive - setting one will unset the other
+
 ```

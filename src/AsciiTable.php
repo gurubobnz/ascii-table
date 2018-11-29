@@ -18,6 +18,8 @@ class AsciiTable {
 	protected $headers = [];
 	protected $rows = [];
 	protected $format = 'box';	// default option
+	protected $only = [];
+	protected $except = [];
 
 	protected $formats = [
 		'box' => [
@@ -122,6 +124,18 @@ class AsciiTable {
 		return $this->format;
 	}
 
+	public function only($fields) {
+		$this->except = null;
+		$this->only = (array)$fields;
+		return $this;
+	}
+
+	public function except($fields) {
+		$this->only = null;
+		$this->except = (array)$fields;
+		return $this;
+	}
+
 	public function format($format) {
 		if(!isset($this->formats[$format])) {
 			throw new InvalidFormatException('Unknown format ['.$format.'] for AsciiTable');
@@ -131,7 +145,7 @@ class AsciiTable {
 	}
 
 	public function copy() {
-		return new static($this->headers, $this->rows, $this->format);
+		return clone($this);
 	}
 
 	public function __toString() {
@@ -142,6 +156,56 @@ class AsciiTable {
 
 		// No rows, no output
 		if(!$rows) return '';
+
+		if($this->only) {
+			// Get the indexes of where the 'only' fields are:
+			$onlyIndexes = [];
+			foreach($headers as $idx => $header) {
+				if(!in_array($header, $this->only)) {
+					$onlyIndexes[] = $idx;
+				}
+			}
+			// Now remove those indexes from the headers:
+			foreach($onlyIndexes as $idx) {
+				unset($headers[$idx]);
+			}
+			// And zero base the headers:
+			$headers = array_values($headers);
+		
+			// Now do the same for the rows:
+			foreach($rows as &$row) {
+				foreach($onlyIndexes as $idx) {
+					unset($row[$idx]);
+				}
+				// And zero base the row:
+				$row = array_values($row);
+			}
+		}
+
+		if($this->except) {
+			// Get the indexes of where the 'except' fields aren't:
+			$exceptIndexes = [];
+			foreach($headers as $idx => $header) {
+				if(in_array($header, $this->except)) {
+					$exceptIndexes[] = $idx;
+				}
+			}
+			// Now remove those indexes from the headers:
+			foreach($exceptIndexes as $idx) {
+				unset($headers[$idx]);
+			}
+			// And zero base the headers:
+			$headers = array_values($headers);
+		
+			// Now do the same for the rows:
+			foreach($rows as &$row) {
+				foreach($exceptIndexes as $idx) {
+					unset($row[$idx]);
+				}
+				// And zero base the row:
+				$row = array_values($row);
+			}
+		}
 
 		$chars = $this->formats[$format];
 
