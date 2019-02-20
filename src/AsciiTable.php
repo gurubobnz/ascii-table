@@ -173,15 +173,15 @@ class AsciiTable {
 			$headers = array_values($headers);
 		
 			// Now do the same for the rows:
-			foreach($rows as &$row) {
+			foreach($rows as $rowIdx => $row) {
 				foreach($onlyIndexes as $idx) {
-					unset($row[$idx]);
+					unset($rows[$rowIdx][$idx]);
 				}
 				// And zero base the row:
-				$row = array_values($row);
+				$rows[$rowIdx] = array_values($rows[$rowIdx]);
 			}
 		}
-
+		
 		if($this->except) {
 			// Get the indexes of where the 'except' fields aren't:
 			$exceptIndexes = [];
