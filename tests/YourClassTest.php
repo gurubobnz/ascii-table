@@ -1,6 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 use GuruBob\AsciiTable;
+use GuruBob\AsciiTable\InvalidFormatException;
 
 /**
 *  Corresponding Class to test YourClass class
@@ -64,7 +65,7 @@ class YourClassTest extends TestCase
 		try {
 			$table->format('ohdflgkhjdfgjhdfgjhsdlfgjhsdflgjkdsfhgkljdf');
 			$thrown = false;
-		} catch(AsciiTable\InvalidFormatException $e) {
+		} catch(InvalidFormatException $e) {
 			$thrown = true;
 		}
 		$this->assertTrue($thrown);
@@ -80,9 +81,14 @@ class YourClassTest extends TestCase
 	}
 
 	public function testCreatingTableWithInvalidCollection() {
-		$data = [true, true, true];
-		$table = new AsciiTable($data);
-		$this->assertTrue(count($table->getRows()) == 4);
+		try {
+			$data = [true, true, true];
+			$table = new AsciiTable($data);
+			$thrown = false;
+		} catch(InvalidFormatException $e) {
+			$thrown = true;
+		}
+		$this->assertTrue($thrown);
 	}
 
 

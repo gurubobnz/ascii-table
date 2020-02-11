@@ -20,5 +20,8 @@
         "psr-4": {
             "GuruBob\\": "src/"
         }
+    },
+    "scripts": {
+        "test": "phpunit"
     }
 }

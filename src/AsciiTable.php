@@ -1,7 +1,6 @@
 <?php namespace GuruBob;
 
 use GuruBob\AsciiTable\InvalidFormatException;
-use GuruBob\AsciiTable\Exception;
 
 /**
 *  A sample class
@@ -91,7 +90,7 @@ class AsciiTable {
 			if($rows) $this->rows($rows);
 		} else {
 			if($headers) {
-				throw new Exception('Unexpected format for headers, please pass an array of strings or an array of arrays if you have a collection of things');
+				throw new InvalidFormatException('Unexpected format for headers, please pass an array of strings or an array of arrays if you have a collection of things');
 			}
 		}
 		if($format) $this->format($format);
