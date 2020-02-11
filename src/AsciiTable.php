@@ -193,17 +193,17 @@ class AsciiTable {
 			foreach($exceptIndexes as $idx) {
 				unset($headers[$idx]);
 			}
-			// And zero base the headers:
-			$headers = array_values($headers);
 		
 			// Now do the same for the rows:
-			foreach($rows as &$row) {
+			foreach($rows as $rowIdx => $row) {
 				foreach($exceptIndexes as $idx) {
-					unset($row[$idx]);
+					unset($rows[$rowIdx][$idx]);
 				}
-				// And zero base the row:
-				$row = array_values($row);
 			}
+
+			// Zero base the header and rows
+			$headers = array_values($headers);
+			foreach($rows as $idx => $row) $rows[$idx] = array_values($row);
 		}
 
 		$chars = $this->formats[$format];
